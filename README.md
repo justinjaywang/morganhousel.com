@@ -56,9 +56,9 @@ npm run css:build
 
 `npm run css` compiles again on each save. GitHub Pages does not run npm, so commit `styles/main.css` after a CSS change. Source lives in `_styles/`.
 
-The root font size is 18px, 19px from 948px wide, and 20px from 1428px wide. Line height is 1.4, and `--v` is `1.4rem`, one line of text. Those widths are the type steps from the reference styles, not layout containers.
+The root font size is 18px, 19px from 820px wide, and 20px from 1428px wide. Line height is 1.4, and `--v` is `1.4rem`, one line of text. The 19px step shares the width where the covers go from one-up to three across. The 20px step is the wider type step from the reference styles.
 
-The text column is `32rem`. Below 820px the covers are one-up in that same `32rem`. From 820px the book row is `64rem`, twice the column, and three across. The gap is one `--gutter` (`gap-g`) in both directions. The page inset is `px-2g`, two gutters, at every width. Vertically the page is `pt-4`, `mt-3` between the text and the covers, and `pb-4`. In `tailwind.config.js` a spacing number is that many `--v`, which replaces Tailwind's default scale. A `g` suffix is that many `--gutter`. Each cover sits on a `#D2D5D3` mat at `84.375%` of that mat's height (`27/32`). The mat is `aspect-4/3` below 468px, `aspect-3/2` from there until the row goes three across, and `aspect-square` from 820px. Lengths are rem. The type steps at 948px and 1428px stay in pixels.
+The text column is `32rem`. Below 820px the covers are one-up in that same `32rem`. From 820px the book row is `64rem`, twice the column, and three across. The gap is one `--gutter` (`gap-g`) in both directions. The page inset is `px-2g`, two gutters, at every width. Below 820px the page is `pt-3`, `mt-2` between the text and the covers, and `pb-3`. From 820px it is `pt-4`, `mt-3`, and `pb-4`. In `tailwind.config.js` a spacing number is that many `--v`, which replaces Tailwind's default scale. A `g` suffix is that many `--gutter`. Each cover sits on a `#D2D5D3` mat at `84.375%` of that mat's height (`27/32`). The mat is `aspect-4/3` below 468px, `aspect-3/2` from there until the row goes three across, and `aspect-square` from 820px. Lengths are rem. The 820px and 1428px steps stay in pixels.
 
 ## Editing copy
 

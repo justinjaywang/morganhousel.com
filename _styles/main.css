@@ -17,13 +17,17 @@
     color: #171813;
     @apply antialiased;
   }
+  /* One-up is 3/2/3. From 820px the page is 4/3/4. */
   main {
-    @apply px-2g pt-4 pb-4;
+    @apply px-2g pt-3 pb-3;
   }
-  /* Same type steps as the reference styles. */
-  @media (min-width: 948px) {
+  /* 19px shares the one-up snap. 20px stays the wider reference step. */
+  @media (min-width: 820px) {
     html {
       font-size: 118.75%; /* 19px */
+    }
+    main {
+      @apply pt-4 pb-4;
     }
   }
   @media (min-width: 1428px) {
@@ -54,13 +58,11 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     max-width: 32rem;
-    @apply mx-auto mt-3 w-full gap-g;
+    @apply mx-auto mt-2 w-full gap-g;
   }
   .books figure {
     @apply aspect-4/3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
     background: #d2d5d3;
   }
   /* Reference sm. The wider one-up mats are the shorter 3:2. */
@@ -75,16 +77,29 @@
     .books {
       max-width: 64rem;
       grid-template-columns: repeat(3, minmax(0, 1fr));
+      @apply mt-3;
     }
     .books figure {
       @apply aspect-square;
     }
   }
   .books a {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .books .cover {
     position: relative;
     display: block;
     height: 84.375%;
     width: fit-content;
+    transition: transform 80ms ease-out;
+  }
+  .books a:hover .cover,
+  .books a:focus-visible .cover {
+    transform: translateY(-0.15rem);
   }
   .books img {
     display: block;
@@ -92,6 +107,22 @@
     width: auto;
     max-width: none;
     box-shadow: 0.05rem 0.05rem 0.9rem rgb(0 0 0 / 5%);
+    transition: box-shadow 80ms ease-out;
+  }
+  .books a:hover img,
+  .books a:focus-visible img {
+    /* Offset grows with the lift so the shadow stays on the mat and spreads a little. */
+    box-shadow: 0.08rem 0.2rem 1.12rem rgb(0 0 0 / 8%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .books .cover,
+    .books img {
+      transition: none;
+    }
+    .books a:hover .cover,
+    .books a:focus-visible .cover {
+      transform: none;
+    }
   }
   .books .scrim {
     position: absolute;
