@@ -16,19 +16,8 @@ layout: page
     </figure>
     {% endfor %}
 
-    {% for paragraph in site.data.copy.paragraphs %}
-    {{ paragraph | markdownify }}
-    {% endfor %}
-
-    {% for contact in site.data.copy.contacts %}
-    <p>{{ contact.text | escape }} <a href="mailto:{{ contact.email }}">{{ contact.email | escape }}</a>.</p>
-    {% endfor %}
-
-    <ul>
-      {% for link in site.data.copy.links %}
-      <li><a href="{{ link.url }}">{{ link.label | escape }}</a></li>
-      {% endfor %}
-    </ul>
+    {% capture copy %}{% include copy.md %}{% endcapture %}
+    {{ copy | markdownify }}
   </main>
 </body>
 </html>
