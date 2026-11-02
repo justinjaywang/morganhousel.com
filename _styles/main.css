@@ -1,5 +1,12 @@
 @import "./fonts.css";
 
+/* A percentage, so the wipe can animate. A bare 0 is a length and will not. */
+@property --link-wipe {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0.001%;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -54,6 +61,44 @@
     max-width: 32rem;
     @apply mx-auto;
   }
+  /* Text links only. Cover links keep the lift in .books a.
+     The underline stays. The wash animates in, and leaving snaps the wash away. */
+  .copy a {
+    --link-wash: #ECF2EE;
+    --link-wipe: 0%;
+    color: inherit;
+    text-decoration-line: underline;
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.14em;
+    padding-left: 0.08em;
+    padding-right: 0.08em;
+    margin-left: -0.08em;
+    margin-right: -0.08em;
+    overflow-wrap: break-word;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    background-image: linear-gradient(var(--link-wash), var(--link-wash));
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: var(--link-wipe) 100%;
+    transition: none;
+  }
+  .copy a:visited {
+    color: inherit;
+  }
+  .copy a:hover,
+  .copy a:focus-visible {
+    --link-wipe: 100%;
+    /* Duration is set per link so a longer line takes longer, but not in full proportion. */
+    transition: --link-wipe var(--link-time, 0.16s) linear;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .copy a:hover,
+    .copy a:focus-visible {
+      transition: none;
+    }
+  }
   .books {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -95,7 +140,7 @@
     display: block;
     height: 84.375%;
     width: fit-content;
-    transition: transform 80ms ease-out;
+    transition: transform 100ms ease-out;
   }
   .books a:hover .cover,
   .books a:focus-visible .cover {
@@ -107,7 +152,7 @@
     width: auto;
     max-width: none;
     box-shadow: 0.05rem 0.05rem 0.9rem rgb(0 0 0 / 5%);
-    transition: box-shadow 80ms ease-out;
+    transition: box-shadow 100ms ease-out;
   }
   .books a:hover img,
   .books a:focus-visible img {
