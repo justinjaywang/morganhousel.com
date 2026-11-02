@@ -58,7 +58,7 @@ npm run css:build
 
 The root font size is 18px, 19px from 948px wide, and 20px from 1428px wide. Line height is 1.4, and `--v` is `1.4rem`, one line of text. Those widths are the type steps from the reference styles, not layout containers.
 
-The text column is `32rem`. The book row is `64rem`, twice the column, with three columns and a `--gutter` of `0.5rem` between them (`gap-g`). The page inset is `px-2g`, two gutters, at every width. Vertically the page is `pt-4`, `mt-3` between the text and the covers, and `pb-4`. In `tailwind.config.js` a spacing number is that many `--v`, which replaces Tailwind's default scale. A `g` suffix is that many `--gutter`. Each cover sits on a square of `#D2D5D3` at `84.375%` of that square's height (`27/32`). Lengths are rem. The type-step breakpoints above stay in pixels.
+The text column is `32rem`. Below 820px the covers are one-up in that same `32rem`. From 820px the book row is `64rem`, twice the column, and three across. The gap is one `--gutter` (`gap-g`) in both directions. The page inset is `px-2g`, two gutters, at every width. Vertically the page is `pt-4`, `mt-3` between the text and the covers, and `pb-4`. In `tailwind.config.js` a spacing number is that many `--v`, which replaces Tailwind's default scale. A `g` suffix is that many `--gutter`. Each cover sits on a `#D2D5D3` mat at `84.375%` of that mat's height (`27/32`). The mat is `aspect-4/3` below 468px, `aspect-3/2` from there until the row goes three across, and `aspect-square` from 820px. Lengths are rem. The type steps at 948px and 1428px stay in pixels.
 
 ## Editing copy
 

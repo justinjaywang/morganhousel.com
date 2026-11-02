@@ -44,23 +44,41 @@
     font-feature-settings: "c2sc" 1, "smcp" 1;
   }
 
-  /* 32rem is the text column. The book row is twice that. */
+  /* 32rem is the text column. One-up covers use that same width.
+     From 820px the row is twice that, three across. */
   .copy {
     max-width: 32rem;
     @apply mx-auto;
   }
   .books {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    max-width: 64rem;
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 32rem;
     @apply mx-auto mt-3 w-full gap-g;
   }
   .books figure {
-    aspect-ratio: 1;
+    @apply aspect-4/3;
     display: flex;
     align-items: center;
     justify-content: center;
     background: #d2d5d3;
+  }
+  /* Reference sm. The wider one-up mats are the shorter 3:2. */
+  @media (min-width: 468px) {
+    .books figure {
+      @apply aspect-3/2;
+    }
+  }
+  /* A little wider than the reference md (708px).
+     gap-g is both directions, so the stacked gap matches the row gap. */
+  @media (min-width: 820px) {
+    .books {
+      max-width: 64rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .books figure {
+      @apply aspect-square;
+    }
   }
   .books a {
     position: relative;
