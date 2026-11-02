@@ -2,6 +2,8 @@ Morgan Housel is the New York Times Bestselling author of *The Psychology of Mon
 
 He is a two-time winner of the Best in Business Award from the Society of American Business Editors and Writers, and winner of the New York Times Sidney Award. MarketWatch named him one of the 50 most influential people in markets. He’s a partner at [The Collaborative Fund](http://www.collaborativefund.com/blog) and serves on the board of directors at [Markel](https://www.markel.com/markel-corporation).
 
+—
+
 For speaking availability, contact [speaking@longtermwords.com](mailto:speaking@longtermwords.com).
 
 For bulk book orders, contact [books@longtermwords.com](mailto:books@longtermwords.com).

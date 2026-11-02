@@ -12,6 +12,8 @@
   html {
     font-size: 112.5%; /* 18px */
     line-height: 1.4;
+    color: #171813;
+    @apply antialiased;
   }
   /* Same type steps as the reference styles. */
   @media (min-width: 948px) {
@@ -26,5 +28,14 @@
   }
   body {
     @apply font-serif;
+  }
+  p {
+    @apply mb-1;
+  }
+  ul {
+    list-style: none;
+  }
+  .c2sc {
+    font-feature-settings: "c2sc" 1, "smcp" 1;
   }
 }

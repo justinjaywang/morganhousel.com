@@ -12,6 +12,7 @@ layout: page
 <body>
   <main>
     {% capture copy %}{% include copy.md %}{% endcapture %}
+    {% assign copy = copy | replace_first: "Morgan Housel", '<span class="c2sc">Morgan Housel</span>' %}
     {{ copy | markdownify }}
 
     {% for image in site.data.images %}

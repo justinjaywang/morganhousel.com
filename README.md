@@ -62,6 +62,8 @@ The root font size is 18px, 19px from 948px wide, and 20px from 1428px wide. Lin
 
 Change `_includes/copy.md` and nothing else. It is ordinary Markdown, not a data structure.
 
+The opening words `Morgan Housel` stay plain in that file. The template wraps the first occurrence in `<span class="c2sc">` before rendering. That class turns on the font's `c2sc` and `smcp` features, so the name is small caps from Martina Plantijn's glyphs.
+
 - A blank line starts a new paragraph.
 - `*The Psychology of Money*` is italics.
 - `[The Collaborative Fund](http://www.collaborativefund.com/blog/)` is a link.
@@ -87,4 +89,4 @@ Do not set a `theme` in `_config.yml`. `_layouts/page.html` exists so GitHub Pag
 
 ## Not set yet
 
-No container widths, gutters, colors, or vertical spacing between blocks. Tailwind's base reset is on, so browser paragraph margins are gone until those are specified.
+No container widths or gutters. Text is `#171813`. A paragraph's bottom margin is one `--v`. Lists have no markers. Other blocks have no vertical spacing yet.

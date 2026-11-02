@@ -10,6 +10,9 @@ module.exports = {
       fontFamily: {
         serif: ['"Martina Plantijn"', "serif"],
       },
+      spacing: {
+        1: "var(--v)",
+      },
     },
   },
 };
