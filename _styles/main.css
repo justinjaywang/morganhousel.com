@@ -38,17 +38,20 @@
     color: #171813;
     @apply antialiased;
   }
-  /* One-up is 3/2/3. From 820px the page is 4/3/4. */
+  /* One-up is 3/2/3. From 612px, with the three-up, the page is 4/3/4.
+     19px is the 820px step, when those mats go square.
+     20px stays the wider reference step. */
   main {
     @apply px-2g pt-3 pb-3;
   }
-  /* 19px shares the one-up snap. 20px stays the wider reference step. */
+  @media (min-width: 612px) {
+    main {
+      @apply pt-4 pb-4;
+    }
+  }
   @media (min-width: 820px) {
     html {
       font-size: 118.75%; /* 19px */
-    }
-    main {
-      @apply pt-4 pb-4;
     }
   }
   @media (min-width: 1428px) {
@@ -70,7 +73,8 @@
   }
 
   /* 32rem is the text column. One-up covers use that same width.
-     From 820px the row is twice that, three across. */
+     From 612px the row is twice that, three across, at 4:5.
+     From 820px those mats are square. */
   .copy {
     max-width: 32rem;
     @apply mx-auto;
@@ -125,24 +129,26 @@
     @apply mx-auto mt-2 w-full gap-g;
   }
   .books figure {
-    @apply aspect-4/3;
+    @apply aspect-3/2;
     position: relative;
     background: #d2d5d3;
   }
-  /* Reference sm. The wider one-up mats are the shorter 3:2. */
-  @media (min-width: 468px) {
-    .books figure {
-      @apply aspect-3/2;
-    }
-  }
-  /* A little wider than the reference md (708px).
+  /* 612px is 34rem at 18px: the text column plus the page inset.
+     Below that the column is squeezed, so the covers stay one-up.
+     The portrait mats keep those covers large while the row is still narrow.
      gap-g is both directions, so the stacked gap matches the row gap. */
-  @media (min-width: 820px) {
+  @media (min-width: 612px) {
     .books {
       max-width: 64rem;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       @apply mt-3;
     }
+    .books figure {
+      @apply aspect-4/5;
+    }
+  }
+  /* Square mats from the same 820px step as the type. */
+  @media (min-width: 820px) {
     .books figure {
       @apply aspect-square;
     }

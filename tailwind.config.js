@@ -22,8 +22,8 @@ module.exports = {
         serif: ['"Martina Plantijn"', "serif"],
       },
       aspectRatio: {
+        "4/5": "4 / 5",
         "3/2": "3 / 2",
-        "4/3": "4 / 3",
       },
     },
   },
