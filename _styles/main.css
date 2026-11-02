@@ -1,0 +1,30 @@
+@import "./fonts.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* 1 vertical unit; one line of body text. */
+    --v: 1.4rem;
+  }
+  html {
+    font-size: 112.5%; /* 18px */
+    line-height: 1.4;
+  }
+  /* Same type steps as the reference styles. */
+  @media (min-width: 948px) {
+    html {
+      font-size: 118.75%; /* 19px */
+    }
+  }
+  @media (min-width: 1428px) {
+    html {
+      font-size: 125%; /* 20px */
+    }
+  }
+  body {
+    @apply font-serif;
+  }
+}

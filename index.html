@@ -7,17 +7,18 @@ layout: page
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ site.title }}</title>
+  <link rel="stylesheet" href="{{ '/styles/main.css' | relative_url }}">
 </head>
 <body>
   <main>
+    {% capture copy %}{% include copy.md %}{% endcapture %}
+    {{ copy | markdownify }}
+
     {% for image in site.data.images %}
     <figure>
       <img src="{{ image.src | relative_url }}" alt="{{ image.alt | escape }}">
     </figure>
     {% endfor %}
-
-    {% capture copy %}{% include copy.md %}{% endcapture %}
-    {{ copy | markdownify }}
   </main>
 </body>
 </html>

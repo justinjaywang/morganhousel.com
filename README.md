@@ -1,6 +1,6 @@
 # morganhousel.com
 
-One-page site for Morgan Housel. Jekyll builds it. GitHub Pages hosts it. There is no theme and no CSS yet.
+One-page site for Morgan Housel. Jekyll builds the page. Tailwind compiles the CSS. GitHub Pages hosts the result. There is no theme.
 
 The published page is generated HTML. Editing the source files and pushing is the whole update loop. Nothing on the live site reads an outside service.
 
@@ -11,8 +11,12 @@ The published page is generated HTML. Editing the source files and pushing is th
 | `_includes/copy.md` | All of the words, as one Markdown document. |
 | `_data/images.yml` | Which image files appear, and in what order. |
 | `images/` | Image files. A file here is not shown until it is listed in `images.yml`. |
-| `index.html` | The page template. It prints the images, then renders `copy.md`. |
+| `index.html` | The page template. It renders `copy.md`, then the images. |
 | `_layouts/page.html` | Passthrough layout. It outputs the page and nothing else. |
+| `_styles/` | Tailwind source. Jekyll does not publish this directory. |
+| `styles/main.css` | Compiled CSS. This is what the page loads. |
+| `fonts/` | Martina Plantijn, regular and italic. |
+| `tailwind.config.js` | Tailwind content paths and the serif family. |
 | `_config.yml` | Title, Markdown engine, and `baseurl`. |
 | `.ruby-version` | `3.3.4`, the Ruby GitHub Pages uses. |
 | `Gemfile`, `Gemfile.lock` | Local Jekyll only. GitHub Pages does not read them. |
@@ -43,6 +47,17 @@ The `/morganhousel.com` prefix is `baseurl` in `_config.yml`. It matches a GitHu
 
 `bundle exec jekyll build` writes the finished site to `_site/`. That directory is gitignored. Do not commit it.
 
+CSS is separate from Jekyll. From this directory, with Node installed:
+
+```bash
+npm install
+npm run css:build
+```
+
+`npm run css` compiles again on each save. GitHub Pages does not run npm, so commit `styles/main.css` after a CSS change. Source lives in `_styles/`.
+
+The root font size is 18px, 19px from 948px wide, and 20px from 1428px wide. Line height is 1.4, and `--v` is `1.4rem`, one line of text. Those widths are the type steps from the reference styles, not layout containers.
+
 ## Editing copy
 
 Change `_includes/copy.md` and nothing else. It is ordinary Markdown, not a data structure.
@@ -70,6 +85,6 @@ When the site moves to the domain root, set `baseurl` to `""` in `_config.yml`. 
 
 Do not set a `theme` in `_config.yml`. `_layouts/page.html` exists so GitHub Pages does not wrap the document in its default layout. Keep `layout: page` on `index.html`.
 
-## Not built yet
+## Not set yet
 
-No stylesheet, no webfonts, and no Tailwind. Visual decisions are intentionally unset.
+No container widths, gutters, colors, or vertical spacing between blocks. Tailwind's base reset is on, so browser paragraph margins are gone until those are specified.

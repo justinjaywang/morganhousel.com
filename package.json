@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "css": "tailwindcss -i _styles/main.css -o styles/main.css --watch",
+    "css:build": "tailwindcss -i _styles/main.css -o styles/main.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}
