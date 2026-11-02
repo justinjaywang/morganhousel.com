@@ -1,0 +1,34 @@
+---
+layout: page
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ site.title }}</title>
+</head>
+<body>
+  <main>
+    {% for image in site.data.images %}
+    <figure>
+      <img src="{{ image.src | relative_url }}" alt="{{ image.alt | escape }}">
+    </figure>
+    {% endfor %}
+
+    {% for paragraph in site.data.copy.paragraphs %}
+    {{ paragraph | markdownify }}
+    {% endfor %}
+
+    {% for contact in site.data.copy.contacts %}
+    <p>{{ contact.text | escape }} <a href="mailto:{{ contact.email }}">{{ contact.email | escape }}</a>.</p>
+    {% endfor %}
+
+    <ul>
+      {% for link in site.data.copy.links %}
+      <li><a href="{{ link.url }}">{{ link.label | escape }}</a></li>
+      {% endfor %}
+    </ul>
+  </main>
+</body>
+</html>

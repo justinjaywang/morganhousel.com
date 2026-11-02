@@ -1,0 +1,10 @@
+# Covers shown on the page, in this order.
+# To swap one, change src to another file in this repo.
+# To add one, put the file in images/ and add a block here.
+
+- src: /images/same-as-ever.png
+  alt: Same as Ever
+- src: /images/psychology-of-money.png
+  alt: The Psychology of Money
+- src: /images/art-of-spending-money.png
+  alt: The Art of Spending Money

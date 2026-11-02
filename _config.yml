@@ -1,0 +1,10 @@
+title: Morgan Housel
+markdown: kramdown
+# Project site on GitHub Pages. Clear baseurl when this is served from the domain root.
+baseurl: /morganhousel.com
+url: https://justinjaywang.github.io
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
