@@ -58,7 +58,7 @@ npm run css:build
 
 The root font size is 18px, 19px from 948px wide, and 20px from 1428px wide. Line height is 1.4, and `--v` is `1.4rem`, one line of text. Those widths are the type steps from the reference styles, not layout containers.
 
-The text column is `32rem`. The book row is `64rem`, twice the column, with three columns and a `--gutter` of `0.5rem` between them. The page inset is `2` gutters at every width. Each cover sits on a square of `#D2D5D3` at `84.375%` of that square's height (`27/32`). Lengths are rem. The type-step breakpoints above stay in pixels.
+The text column is `32rem`. The book row is `64rem`, twice the column, with three columns and a `--gutter` of `0.5rem` between them (`gap-g`). The page inset is `px-2g`, two gutters, at every width. Vertically the page is `pt-4`, `mt-3` between the text and the covers, and `pb-4`. In `tailwind.config.js` a spacing number is that many `--v`, which replaces Tailwind's default scale. A `g` suffix is that many `--gutter`. Each cover sits on a square of `#D2D5D3` at `84.375%` of that square's height (`27/32`). Lengths are rem. The type-step breakpoints above stay in pixels.
 
 ## Editing copy
 
@@ -91,4 +91,4 @@ Do not set a `theme` in `_config.yml`. `_layouts/page.html` exists so GitHub Pag
 
 ## Not set yet
 
-Text is `#171813`. A paragraph's bottom margin is one `--v`. Lists have no markers. Other blocks have no vertical spacing yet.
+Text is `#171813`. A paragraph's bottom margin is one `--v`. Lists have no markers, and list items have no extra gap.

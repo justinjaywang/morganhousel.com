@@ -18,7 +18,7 @@
     @apply antialiased;
   }
   main {
-    padding-inline: calc(var(--gutter) * 2);
+    @apply px-2g pt-4 pb-4;
   }
   /* Same type steps as the reference styles. */
   @media (min-width: 948px) {
@@ -47,15 +47,13 @@
   /* 32rem is the text column. The book row is twice that. */
   .copy {
     max-width: 32rem;
-    margin-inline: auto;
+    @apply mx-auto;
   }
   .books {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--gutter);
     max-width: 64rem;
-    width: 100%;
-    margin-inline: auto;
+    @apply mx-auto mt-3 w-full gap-g;
   }
   .books figure {
     aspect-ratio: 1;
