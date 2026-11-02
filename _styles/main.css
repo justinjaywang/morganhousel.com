@@ -8,12 +8,17 @@
   :root {
     /* 1 vertical unit; one line of body text. */
     --v: 1.4rem;
+    /* One gutter. Outer insets are multiples of this. */
+    --gutter: 0.5rem;
   }
   html {
     font-size: 112.5%; /* 18px */
     line-height: 1.4;
     color: #171813;
     @apply antialiased;
+  }
+  main {
+    padding-inline: calc(var(--gutter) * 2);
   }
   /* Same type steps as the reference styles. */
   @media (min-width: 948px) {
@@ -37,5 +42,45 @@
   }
   .c2sc {
     font-feature-settings: "c2sc" 1, "smcp" 1;
+  }
+
+  /* 32rem is the text column. The book row is twice that. */
+  .copy {
+    max-width: 32rem;
+    margin-inline: auto;
+  }
+  .books {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--gutter);
+    max-width: 64rem;
+    width: 100%;
+    margin-inline: auto;
+  }
+  .books figure {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #d2d5d3;
+  }
+  .books a {
+    position: relative;
+    display: block;
+    height: 84.375%;
+    width: fit-content;
+  }
+  .books img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    box-shadow: 0.05rem 0.05rem 0.9rem rgb(0 0 0 / 5%);
+  }
+  .books .scrim {
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 3%);
+    pointer-events: none;
   }
 }
