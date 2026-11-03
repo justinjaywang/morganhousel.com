@@ -32,30 +32,17 @@ layout: page
   </main>
   <script>
     (function () {
-      /* 0.16s at 4em wide. Elsewhere, halfway between that fixed time and a steady speed. */
-      var base = 0.16;
-      function widest(link) {
-        var rects = link.getClientRects();
-        var width = 0;
-        for (var i = 0; i < rects.length; i++) {
-          if (rects[i].width > width) width = rects[i].width;
-        }
-        return width;
+      /* Red, green, blue. A new pick each time the pointer or keyboard arrives. */
+      var washes = ["#F3EDEA", "#ECF2EE", "#EBF0F5"];
+      function paint(event) {
+        var color = washes[Math.floor(Math.random() * washes.length)];
+        event.currentTarget.style.setProperty("--link-wash", color);
       }
-      function timeLinks() {
-        var links = document.querySelectorAll(".copy a");
-        if (!links.length) return;
-        var em = parseFloat(getComputedStyle(links[0]).fontSize);
-        var reference = 4 * em;
-        for (var i = 0; i < links.length; i++) {
-          var width = widest(links[i]);
-          var seconds = base * (width + reference) / (2 * reference);
-          links[i].style.setProperty("--link-time", seconds.toFixed(3) + "s");
-        }
+      var links = document.querySelectorAll(".copy a");
+      for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener("pointerenter", paint);
+        links[i].addEventListener("focus", paint);
       }
-      timeLinks();
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(timeLinks);
-      window.addEventListener("resize", timeLinks);
     })();
   </script>
 </body>

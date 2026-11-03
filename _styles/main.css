@@ -1,26 +1,5 @@
 @import "./fonts.css";
 
-/* A percentage, so the wipe can animate. A bare 0 is a length and will not. */
-@property --link-wipe {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 0.001%;
-}
-/* Same green at zero alpha, so the blend stays green instead of fading through black. */
-@property --link-ink {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: rgb(236 242 238 / 0%);
-}
-@keyframes link-ink {
-  from { --link-ink: rgb(236 242 238 / 0%); }
-  to { --link-ink: #ECF2EE; }
-}
-@keyframes link-fill {
-  from { --link-wipe: 33.3333%; } /* 1/3 */
-  to { --link-wipe: 100%; }
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -80,12 +59,10 @@
     @apply mx-auto;
   }
   /* Text links only. Cover links keep the lift in .books a.
-     The underline stays. The first third of the wash blends in, then the rest fills.
-     Leaving snaps the wash away. */
+     The underline stays. Each visit picks a red, green, or blue wash.
+     It appears at once and fades out. */
   .copy a {
     --link-wash: #ECF2EE;
-    --link-ink: rgb(236 242 238 / 0%);
-    --link-wipe: 0%;
     color: inherit;
     text-decoration-line: underline;
     text-decoration-color: currentColor;
@@ -98,28 +75,20 @@
     overflow-wrap: break-word;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
-    background-image: linear-gradient(var(--link-ink), var(--link-ink));
-    background-repeat: no-repeat;
-    background-position: left center;
-    background-size: var(--link-wipe) 100%;
-    transition: none;
+    background-color: transparent;
+    transition: background-color 75ms ease-out;
   }
   .copy a:visited {
     color: inherit;
   }
   .copy a:hover,
   .copy a:focus-visible {
-    --link-wipe: 100%;
-    --link-ink: var(--link-wash);
-    /* --link-time is the full-width pace. The fill covers the last two thirds, 25% faster. */
-    animation:
-      link-ink 0.064s ease-out backwards,
-      link-fill calc(var(--link-time, 0.16s) * 8 / 15) ease-out 0.064s backwards;
+    background-color: var(--link-wash);
+    transition: none;
   }
   @media (prefers-reduced-motion: reduce) {
-    .copy a:hover,
-    .copy a:focus-visible {
-      animation: none;
+    .copy a {
+      transition: none;
     }
   }
   .books {
