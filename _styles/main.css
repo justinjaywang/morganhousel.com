@@ -40,16 +40,11 @@
     color: #171813;
     @apply antialiased;
   }
-  /* One-up is 3/2/3. From 612px, with the three-up, the page is 4/3/4.
+  /* Page spacing stays 4/3/4 at every width: pt-4, mt-3, pb-4.
      19px is the 820px step, when those mats go square.
      20px stays the wider reference step. */
   main {
-    @apply px-2g pt-3 pb-3;
-  }
-  @media (min-width: 612px) {
-    main {
-      @apply pt-4 pb-4;
-    }
+    @apply px-2g pt-4 pb-4;
   }
   @media (min-width: 820px) {
     html {
@@ -132,7 +127,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     max-width: 32rem;
-    @apply mx-auto mt-2 w-full gap-g;
+    @apply mx-auto mt-3 w-full gap-g;
   }
   .books figure {
     @apply aspect-3/2;
@@ -147,7 +142,6 @@
     .books {
       max-width: 64rem;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      @apply mt-3;
     }
     .books figure {
       @apply aspect-3/4;
