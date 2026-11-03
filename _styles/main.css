@@ -73,7 +73,7 @@
   }
 
   /* 32rem is the text column. One-up covers use that same width.
-     From 612px the row is twice that, three across, at 4:5.
+     From 612px the row is twice that, three across, at 3:4.
      From 820px those mats are square. */
   .copy {
     max-width: 32rem;
@@ -144,7 +144,7 @@
       @apply mt-3;
     }
     .books figure {
-      @apply aspect-4/5;
+      @apply aspect-3/4;
     }
   }
   /* Square mats from the same 820px step as the type. */
