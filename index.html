@@ -14,13 +14,13 @@ layout: page
     <div class="copy">
       {% capture copy %}{% include copy.md %}{% endcapture %}
       {% assign copy = copy | replace_first: "Morgan Housel", '<span class="c2sc">Morgan Housel</span>' %}
-      {{ copy | markdownify }}
+      {{ copy | markdownify | replace: '<a href="http', '<a target="_blank" rel="noopener noreferrer" href="http' }}
     </div>
 
     <div class="books">
       {% for image in site.data.images %}
       <figure>
-        <a href="{{ image.url }}">
+        <a href="{{ image.url }}"{% if image.url contains '://' %} target="_blank" rel="noopener noreferrer"{% endif %}>
           <span class="cover">
             <img src="{{ image.src | relative_url }}" alt="{{ image.alt | escape }}">
             <span class="scrim" aria-hidden="true"></span>
