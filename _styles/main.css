@@ -10,11 +10,11 @@
 @property --link-ink {
   syntax: "<color>";
   inherits: false;
-  initial-value: rgb(236 242 238 / 0%);
+  initial-value: rgb(234 241 236 / 0%);
 }
 @keyframes link-ink {
-  from { --link-ink: rgb(236 242 238 / 0%); }
-  to { --link-ink: #ECF2EE; }
+  from { --link-ink: rgb(234 241 236 / 0%); }
+  to { --link-ink: #EAF1EC; }
 }
 @keyframes link-fill {
   from { --link-wipe: 33.3333%; } /* 1/3 */
@@ -80,15 +80,15 @@
     @apply mx-auto;
   }
   /* Text links only. Cover links keep the lift in .books a.
-     The underline stays. The first third of the wash blends in, then the rest fills.
-     Leaving snaps the wash away. */
+     The underline fades out as the wash comes in. The first third blends in, then the rest fills.
+     Leaving snaps the underline and the wash back. */
   .copy a {
-    --link-wash: #ECF2EE;
-    --link-ink: rgb(236 242 238 / 0%);
+    --link-wash: #EAF1EC;
+    --link-ink: rgb(234 241 236 / 0%);
     --link-wipe: 0%;
     color: inherit;
     text-decoration-line: underline;
-    text-decoration-color: currentColor;
+    text-decoration-color: #A3ACA6;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.14em;
     padding-left: 0.08em;
@@ -111,6 +111,9 @@
   .copy a:focus-visible {
     --link-wipe: 100%;
     --link-ink: var(--link-wash);
+    text-decoration-color: transparent;
+    /* The rule fades on its own, quicker than the wash. Leaving has no transition, so it snaps. */
+    transition: text-decoration-color 75ms ease-out;
     /* --link-time is the full-width pace. The fill covers the last two thirds, 25% faster. */
     animation:
       link-ink 0.064s ease-out backwards,
@@ -120,6 +123,7 @@
     .copy a:hover,
     .copy a:focus-visible {
       animation: none;
+      transition: none;
     }
   }
   .books {
