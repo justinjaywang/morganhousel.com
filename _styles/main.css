@@ -31,6 +31,8 @@
     --v: 1.4rem;
     /* One gutter. Outer insets are multiples of this. */
     --gutter: 0.5rem;
+    /* Ease-out quad, shared by the wipe and the cover lift. */
+    --ease: cubic-bezier(0.5, 1, 0.89, 1);
   }
   html {
     font-size: 112.5%; /* 18px */
@@ -116,8 +118,8 @@
     transition: text-decoration-color 75ms ease-out;
     /* --link-time is the full-width pace. The fill covers the last two thirds, 25% faster. */
     animation:
-      link-ink 0.064s ease-out backwards,
-      link-fill calc(var(--link-time, 0.16s) * 8 / 15) ease-out 0.064s backwards;
+      link-ink 0.064s var(--ease) backwards,
+      link-fill calc(var(--link-time, 0.16s) * 8 / 15) var(--ease) 0.064s backwards;
   }
   @media (prefers-reduced-motion: reduce) {
     .copy a:hover,
@@ -169,7 +171,7 @@
     display: block;
     height: 84.375%;
     width: fit-content;
-    transition: transform 100ms ease-out;
+    transition: transform 100ms var(--ease);
   }
   .books a:hover .cover,
   .books a:focus-visible .cover {
@@ -181,7 +183,7 @@
     width: auto;
     max-width: none;
     box-shadow: 0.05rem 0.05rem 0.9rem rgb(0 0 0 / 5%);
-    transition: box-shadow 100ms ease-out;
+    transition: box-shadow 100ms var(--ease);
   }
   .books a:hover img,
   .books a:focus-visible img {
