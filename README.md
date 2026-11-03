@@ -1,6 +1,6 @@
 # morganhousel.com
 
-One-page site for Morgan Housel. Jekyll builds the page. Tailwind compiles the CSS. GitHub Pages hosts the result. There is no theme.
+Site for Morgan Housel. The homepage is the current page. `/alt/` is a separate layout. Jekyll builds both. Tailwind compiles the CSS. GitHub Pages hosts the result. There is no theme.
 
 The published page is generated HTML. Editing the source files and pushing is the whole update loop. Nothing on the live site reads an outside service.
 
@@ -9,14 +9,18 @@ The published page is generated HTML. Editing the source files and pushing is th
 | Path | Role |
 | --- | --- |
 | `_includes/copy.md` | All of the words, as one Markdown document. |
-| `_data/images.yml` | Which image files appear, and in what order. |
-| `images/` | Image files. A file here is not shown until it is listed in `images.yml`. |
-| `index.html` | The page template. It renders `copy.md`, then the images. |
+| `_data/images.yml` | Which image files appear on the homepage, and in what order. |
+| `_data/alt.yml` | Which image files appear on `/alt/`, and in what order. |
+| `images/` | Image files. A file here is not shown until it is listed in `images.yml` or `alt.yml`. |
+| `index.html` | The homepage. It renders `copy.md`, then the images. |
+| `alt/index.html` | The alternate page. Same words, its own image list and stylesheet. |
 | `_layouts/page.html` | Passthrough layout. It outputs the page and nothing else. |
 | `_styles/` | Tailwind source. Jekyll does not publish this directory. |
-| `styles/main.css` | Compiled CSS. This is what the page loads. |
+| `styles/main.css` | Compiled CSS for the homepage. |
+| `styles/alt.css` | Compiled CSS for `/alt/`. |
 | `fonts/` | Martina Plantijn, regular and italic. |
-| `tailwind.config.js` | Tailwind content paths and the serif family. |
+| `tailwind.config.js` | Tailwind content paths and the serif family for the homepage. |
+| `tailwind.alt.config.js` | The same, for `/alt/`. It starts as a copy. |
 | `_config.yml` | Title, Markdown engine, and `baseurl`. |
 | `.ruby-version` | `3.3.4`, the Ruby GitHub Pages uses. |
 | `Gemfile`, `Gemfile.lock` | Local Jekyll only. GitHub Pages does not read them. |
@@ -52,9 +56,10 @@ CSS is separate from Jekyll. From this directory, with Node installed:
 ```bash
 npm install
 npm run css:build
+npm run css:alt:build
 ```
 
-`npm run css` compiles again on each save. GitHub Pages does not run npm, so commit `styles/main.css` after a CSS change. Source lives in `_styles/`.
+`npm run css` compiles the homepage again on each save. `npm run css:alt` does the same for `/alt/`. GitHub Pages does not run npm, so commit `styles/main.css` or `styles/alt.css` after a CSS change. Source lives in `_styles/main.css` and `_styles/alt.css`. Fonts are `_styles/fonts.css`, and both stylesheets import that file.
 
 The root font size is 18px, 19px from 820px wide, and 20px from 1428px wide. Line height is 1.4, and `--v` is `1.4rem`, one line of text. The 19px step is the width where the three-up mats go square. The 20px step is the wider type step from the reference styles.
 
@@ -73,9 +78,19 @@ The opening words `Morgan Housel` stay plain in that file. The template wraps th
 
 Contacts and the Podcast, YouTube, and Twitter links are paragraphs in that file. The template does not treat them specially.
 
+## Alternate page
+
+`/alt/` is a second page for the new layout. The homepage stays as it is.
+
+Open [http://127.0.0.1:4000/morganhousel.com/alt/](http://127.0.0.1:4000/morganhousel.com/alt/). Published, that is `https://justinjaywang.github.io/morganhousel.com/alt/`.
+
+`alt/index.html` starts as a copy of `index.html`. It still renders `_includes/copy.md`, so the words stay in one file. Covers come from `_data/alt.yml`. Styles come from `_styles/alt.css`, compiled to `styles/alt.css` with `tailwind.alt.config.js`.
+
+Editing `index.html`, `_data/images.yml`, `_styles/main.css`, or `tailwind.config.js` does not change `/alt/`. Editing the alt files does not change the homepage.
+
 ## Editing images
 
-`_data/images.yml` is a list. Each entry has `src` (a path in this repo, starting with `/images/`), `alt`, and `url`. The template links each cover to `url`. Use the clean Amazon address, `https://www.amazon.com/dp/` plus the ISBN.
+`_data/images.yml` is the homepage list. `_data/alt.yml` is the `/alt/` list. Each entry has `src` (a path in this repo, starting with `/images/`), `alt`, and `url`. The template links each cover to `url`. Use the clean Amazon address, `https://www.amazon.com/dp/` plus the ISBN.
 
 To swap a cover, replace the file or point `src` at a different file. To add one, put the file in `images/` and add an entry. Order in the YAML is the order on the page. Unlisted files stay off the page.
 
