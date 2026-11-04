@@ -30,7 +30,8 @@
   :root {
     /* 1 vertical unit; one line of body text. */
     --v: 1.4rem;
-    /* Inner gutter. The text inset is one and a half of this. */
+    /* Outer gutter. The text inset is 1.5 of this, and the split sage side is at least 3.
+       The gap between covers is separate: 1/12 of each cover's width. */
     --gutter: 0.75rem;
     /* Ease-out quad, shared by the wipe and the cover lift. */
     --ease: cubic-bezier(0.5, 1, 0.89, 1);
@@ -132,8 +133,8 @@
      and no wider than the 32rem measure.
      The field grows with the covers. Vertical padding is 4 lines below 420px,
      3 from there, 2 from 700px, and 1.5 from 980px.
-     The covers share one height. 2929/1500 is the sum of their width/height ratios,
-     so that shared height fills the row after the two gutters.
+     The covers share one height. 2929/1500 is the sum of their width/height ratios.
+     The gap is 1/12 of their average width, so it shrinks when the covers are narrow.
      The lift is on the book link, which is only as big as the cover. */
   .books {
     --sage: #d2d5d3;
@@ -142,7 +143,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: var(--gutter);
+    /* 1/12 of the average cover width. */
+    gap: calc(100% / 38);
     box-sizing: border-box;
     width: 100%;
     margin-top: auto;
@@ -181,7 +183,7 @@
   .books img {
     display: block;
     width: auto;
-    height: calc((100cqw - 2 * var(--gutter)) * 1500 / 2929);
+    height: calc(100cqw * 1500 * 18 / (2929 * 19));
     max-width: none;
     box-shadow: 0.05rem 0.05rem 0.9rem rgb(0 0 0 / 5%);
     transition: box-shadow 100ms var(--ease);
@@ -209,10 +211,9 @@
 
   /* 1260px is the side-by-side snap, and the type steps up to 19px with it.
      The sage panel stays 10/24 and the text stays 14/24, so the panel keeps growing.
-     Each cover stops at half of 24rem after seven gutters: three on each side and one
-     between the columns. Past that, the extra panel width becomes sage padding.
-     The side inset never drops below
-     three gutters, and the cover gap stays one gutter.
+     Each cover stops at half of 24.5rem after seven outer gutters. Past that,
+     the extra panel width becomes sage padding.
+     The side inset never drops below three gutters. The cover gap is 1/12 of the cover width.
      The text column keeps its measure and sits in the center of its partition.
      When the screen is taller than the text, the column centers vertically with the books. */
   @media (min-width: 1260px) {
@@ -222,7 +223,7 @@
       align-items: stretch;
     }
     .books {
-      --book-max: calc((24rem - var(--gutter) * 7) / 2);
+      --book-max: calc((24.5rem - var(--gutter) * 7) / 2);
       container-type: inline-size;
       order: -1;
       flex: 0 0 calc(100% * 10 / 24);
@@ -233,8 +234,8 @@
       grid-template-rows: auto auto;
       align-content: center;
       justify-content: center;
-      gap: var(--gutter);
-      padding: 2.25rem max(calc(var(--gutter) * 3), calc((100% * 10 / 24 - 2 * var(--book-max) - var(--gutter)) / 2));
+      gap: calc(var(--book-max) / 12);
+      padding: 2.25rem max(calc(var(--gutter) * 3), calc((100% * 10 / 24 - 2 * var(--book-max) - var(--book-max) / 12) / 2));
     }
     .books figure:nth-child(1) {
       grid-column: 1;
