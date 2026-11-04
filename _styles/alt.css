@@ -30,8 +30,8 @@
   :root {
     /* 1 vertical unit; one line of body text. */
     --v: 1.4rem;
-    /* One gutter. Outer insets are multiples of this. */
-    --gutter: calc(2rem / 3);
+    /* Inner gutter. The text inset is one and a half of this. */
+    --gutter: 0.75rem;
     /* Ease-out quad, shared by the wipe and the cover lift. */
     --ease: cubic-bezier(0.5, 1, 0.89, 1);
   }
@@ -41,8 +41,8 @@
     color: #171813;
     @apply antialiased;
   }
-  /* Type uses the layout steps. 18px through the 10/12 row, 19px from the
-     9/12 step, and 20px once the books move beside the text. */
+  /* Type uses the layout steps. 18px through the 10/12 row, 18.5px from the
+     9/12 step, and 19px once the books move beside the text. */
   main {
     display: flex;
     flex-direction: column;
@@ -51,12 +51,12 @@
   }
   @media (min-width: 700px) {
     html {
-      font-size: 118.75%; /* 19px */
+      font-size: 115.625%; /* 18.5px */
     }
   }
   @media (min-width: 1260px) {
     html {
-      font-size: 125%; /* 20px */
+      font-size: 118.75%; /* 19px */
     }
   }
   body {
@@ -72,13 +72,13 @@
     font-feature-settings: "c2sc" 1, "smcp" 1;
   }
 
-  /* 32rem is the text measure. Padding sits inside the column width.
+  /* 32rem is the text measure. The side inset is 1.5 gutters, inside that width.
      Below 1260px the text comes first and the books sit in a band under it. */
   .copy {
     box-sizing: border-box;
-    width: min(100%, calc(32rem + var(--gutter) * 4));
+    width: min(100%, calc(32rem + var(--gutter) * 3));
     margin-inline: auto;
-    padding: calc(var(--v) * 4) calc(var(--gutter) * 2) calc(var(--v) * 4);
+    padding: calc(var(--v) * 4) calc(var(--gutter) * 1.5) calc(var(--v) * 4);
   }
   /* Text links only. Cover links keep the lift in .books a.
      The underline fades out as the wash comes in. The first third blends in, then the rest fills.
@@ -128,9 +128,11 @@
     }
   }
   /* One sage field for every cover. The books are inset from it.
-     Narrow: one row. The steps are 280px apart: 420, 700, 980, then the 1260 snap.
-     The covers and two gutters are 11/12 below 420px, then 10/12, 9/12, and 8/12.
-     Those covers share one height. 2929/1500 is the sum of their width/height ratios,
+     Narrow: one row, the same width as the text column. Inset by 1.5 gutters,
+     and no wider than the 32rem measure.
+     The field grows with the covers. Vertical padding is 4 lines below 420px,
+     3 from there, 2 from 700px, and 1.5 from 980px.
+     The covers share one height. 2929/1500 is the sum of their width/height ratios,
      so that shared height fills the row after the two gutters.
      The lift is on the book link, which is only as big as the cover. */
   .books {
@@ -144,22 +146,22 @@
     box-sizing: border-box;
     width: 100%;
     margin-top: auto;
-    padding: calc(var(--v) * 1.5) calc(100% / 24);
+    padding: calc(var(--v) * 4) max(calc(var(--gutter) * 1.5), calc((100% - 32rem) / 2));
     background: var(--sage);
   }
   @media (min-width: 420px) {
     .books {
-      padding-inline: calc(100% / 12);
+      padding-block: calc(var(--v) * 3);
     }
   }
   @media (min-width: 700px) {
     .books {
-      padding-inline: 12.5%;
+      padding-block: calc(var(--v) * 2);
     }
   }
   @media (min-width: 980px) {
     .books {
-      padding-inline: calc(100% / 6);
+      padding-block: calc(var(--v) * 1.5);
     }
   }
   .books figure {
@@ -205,9 +207,9 @@
     pointer-events: none;
   }
 
-  /* 1260px is the side-by-side snap, and the type steps up to 20px with it.
+  /* 1260px is the side-by-side snap, and the type steps up to 19px with it.
      The sage panel stays 9/24 and the text stays 15/24, so the panel keeps growing.
-     Each cover stops at half of 23rem after seven gutters: three on each side and one
+     Each cover stops at half of 25rem after seven gutters: three on each side and one
      between the columns. Past that, the extra panel width becomes sage padding.
      The side inset never drops below
      three gutters, and the cover gap stays one gutter.
@@ -220,7 +222,8 @@
       align-items: stretch;
     }
     .books {
-      --book-max: calc((23rem - var(--gutter) * 7) / 2);
+      --book-max: calc((25rem - var(--gutter) * 7) / 2);
+      container-type: inline-size;
       order: -1;
       flex: 0 0 calc(100% * 9 / 24);
       width: calc(100% * 9 / 24);
@@ -261,7 +264,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: calc(var(--v) * 4) calc(var(--gutter) * 2);
+      padding: calc(var(--v) * 4) calc(var(--gutter) * 1.5);
     }
     .copy > * {
       width: min(32rem, 100%);
