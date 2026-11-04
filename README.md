@@ -1,6 +1,6 @@
 # morganhousel.com
 
-Site for Morgan Housel. The homepage is the current page. `/alt/` is a separate layout. Jekyll builds both. Tailwind compiles the CSS. GitHub Pages hosts the result. There is no theme.
+Site for Morgan Housel. One page. Jekyll builds it. Tailwind compiles the CSS. GitHub Pages hosts the result. There is no theme. `/alt/` is a temporary redirect to `/`.
 
 The published page is generated HTML. Editing the source files and pushing is the whole update loop. Nothing on the live site reads an outside service.
 
@@ -9,18 +9,14 @@ The published page is generated HTML. Editing the source files and pushing is th
 | Path | Role |
 | --- | --- |
 | `_includes/copy.md` | All of the words, as one Markdown document. |
-| `_data/images.yml` | Which image files appear on the homepage, and in what order. |
-| `_data/alt.yml` | Which image files appear on `/alt/`, and in what order. |
-| `images/` | Image files. A file here is not shown until it is listed in `images.yml` or `alt.yml`. |
-| `index.html` | The homepage. It renders `copy.md`, then the images. |
-| `alt/index.html` | The alternate page. Same words, its own image list and stylesheet. |
+| `_data/images.yml` | Which image files appear, and in what order. |
+| `images/` | Image files. A file here is not shown until it is listed in `images.yml`. |
+| `index.html` | The page. It renders `copy.md`, then the images. |
 | `_layouts/page.html` | Passthrough layout. It outputs the page and nothing else. |
 | `_styles/` | Tailwind source. Jekyll does not publish this directory. |
-| `styles/main.css` | Compiled CSS for the homepage. |
-| `styles/alt.css` | Compiled CSS for `/alt/`. |
+| `styles/main.css` | Compiled CSS. |
 | `fonts/` | Martina Plantijn, regular and italic. |
-| `tailwind.config.js` | Tailwind content paths and the serif family for the homepage. |
-| `tailwind.alt.config.js` | The same, for `/alt/`. It starts as a copy. |
+| `tailwind.config.js` | Tailwind content paths and the serif family. |
 | `_config.yml` | Title, Markdown engine, and `baseurl`. |
 | `.ruby-version` | `3.3.4`, the Ruby GitHub Pages uses. |
 | `Gemfile`, `Gemfile.lock` | Local Jekyll only. GitHub Pages does not read them. |
@@ -56,14 +52,11 @@ CSS is separate from Jekyll. From this directory, with Node installed:
 ```bash
 npm install
 npm run css:build
-npm run css:alt:build
 ```
 
-`npm run css` compiles the homepage again on each save. `npm run css:alt` does the same for `/alt/`. GitHub Pages does not run npm, so commit `styles/main.css` or `styles/alt.css` after a CSS change. Source lives in `_styles/main.css` and `_styles/alt.css`. Fonts are `_styles/fonts.css`, and both stylesheets import that file.
+`npm run css` compiles again on each save. GitHub Pages does not run npm, so commit `styles/main.css` after a CSS change. Source lives in `_styles/main.css`. Fonts are `_styles/fonts.css`, which that stylesheet imports.
 
-The root font size is 18px, 19px from 820px wide, and 20px from 1428px wide. Line height is 1.4, and `--v` is `1.4rem`, one line of text. The 19px step is the width where the three-up mats go square. The 20px step is the wider type step from the reference styles.
-
-The text column is `32rem`. Below 612px the covers are one-up in that same `32rem`. 612px is 34rem at 18px, the column plus the page inset, which is where that column starts to get squeezed. From 612px the book row is `64rem`, twice the column, and three across. The gap is one `--gutter` (`gap-g`) in both directions. The page inset is `px-2g`, two gutters, at every width. Below 612px the page is `pt-3`, `mt-2` between the text and the covers, and `pb-3`. From 612px it is `pt-4`, `mt-3`, and `pb-4`. In `tailwind.config.js` a spacing number is that many `--v`, which replaces Tailwind's default scale. A `g` suffix is that many `--gutter`. Each cover sits on a `#D2D5D3` mat at `84.375%` of that mat's height (`27/32`). The mat is `aspect-3/2` while the covers are one-up, `aspect-3/4` while the three-up row is still narrow, and `aspect-square` from 820px. Lengths are rem. The 612px, 820px, and 1428px steps stay in pixels.
+The root font size is 18px, 18.5px from 700px, and 19px from 1260px. Line height is 1.4, and `--v` is `1.4rem`, one line of text. Below 1260px the text sits above a one-row book band. From 1260px the books sit beside the text: Psychology of Money on top, the other two below. The text column is `32rem`. The outer gutter is `0.75rem`; the text inset is 1.5 of that. Gaps between covers are 1/12 of cover width. Bio paragraphs use `text-wrap: pretty`; contact lines with mail links stay normal. In `tailwind.config.js` a spacing number is that many `--v`. A `g` suffix is that many `--gutter`.
 
 ## Editing copy
 
@@ -78,19 +71,9 @@ The opening words `Morgan Housel` stay plain in that file. The template wraps th
 
 Contacts and the Podcast, YouTube, and Twitter links are paragraphs in that file. The template does not treat them specially.
 
-## Alternate page
-
-`/alt/` is a second page for the new layout. The homepage stays as it is.
-
-Open [http://127.0.0.1:4000/morganhousel.com/alt/](http://127.0.0.1:4000/morganhousel.com/alt/). Published, that is `https://justinjaywang.github.io/morganhousel.com/alt/`.
-
-`alt/index.html` starts as a copy of `index.html`. It still renders `_includes/copy.md`, so the words stay in one file. Covers come from `_data/alt.yml`. Styles come from `_styles/alt.css`, compiled to `styles/alt.css` with `tailwind.alt.config.js`.
-
-Editing `index.html`, `_data/images.yml`, `_styles/main.css`, or `tailwind.config.js` does not change `/alt/`. Editing the alt files does not change the homepage.
-
 ## Editing images
 
-`_data/images.yml` is the homepage list. `_data/alt.yml` is the `/alt/` list. Each entry has `src` (a path in this repo, starting with `/images/`), `alt`, and `url`. The template links each cover to `url`. Use the clean Amazon address, `https://www.amazon.com/dp/` plus the ISBN.
+`_data/images.yml` is the list. Each entry has `src` (a path in this repo, starting with `/images/`), `alt`, and `url`. The template links each cover to `url`. Use the clean Amazon address, `https://www.amazon.com/dp/` plus the ISBN.
 
 To swap a cover, replace the file or point `src` at a different file. To add one, put the file in `images/` and add an entry. Order in the YAML is the order on the page. Unlisted files stay off the page.
 
