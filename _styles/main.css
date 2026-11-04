@@ -135,6 +135,17 @@
       transition: none;
     }
   }
+  /* A finger is not a hover. Touch keeps :hover after the tap, so the wash would stay painted.
+     Resting values match .copy a. A keyboard still gets the wash from :focus-visible. */
+  @media (hover: none), (pointer: coarse) {
+    .copy a:hover:not(:focus-visible) {
+      --link-wipe: 0%;
+      --link-ink: rgb(234 241 236 / 0%);
+      text-decoration-color: #A3ACA6;
+      animation: none;
+      transition: none;
+    }
+  }
   /* One sage field for every cover. The books are inset from it.
      Narrow: one row, the same width as the text column. Inset by 1.5 gutters,
      and no wider than the 32rem measure.
@@ -207,6 +218,15 @@
     .books a:hover,
     .books a:focus-visible {
       transform: none;
+    }
+  }
+  /* Same as the text links: no stuck lift after a tap. The shadow matches the resting cover. */
+  @media (hover: none), (pointer: coarse) {
+    .books a:hover:not(:focus-visible) {
+      transform: none;
+    }
+    .books a:hover:not(:focus-visible) img {
+      box-shadow: 0.05rem 0.05rem 0.9rem rgb(0 0 0 / 5%);
     }
   }
   .books .scrim {
