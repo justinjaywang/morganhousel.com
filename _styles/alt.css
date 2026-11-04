@@ -208,8 +208,8 @@
   }
 
   /* 1260px is the side-by-side snap, and the type steps up to 19px with it.
-     The sage panel stays 9/24 and the text stays 15/24, so the panel keeps growing.
-     Each cover stops at half of 25rem after seven gutters: three on each side and one
+     The sage panel stays 10/24 and the text stays 14/24, so the panel keeps growing.
+     Each cover stops at half of 24rem after seven gutters: three on each side and one
      between the columns. Past that, the extra panel width becomes sage padding.
      The side inset never drops below
      three gutters, and the cover gap stays one gutter.
@@ -222,11 +222,11 @@
       align-items: stretch;
     }
     .books {
-      --book-max: calc((25rem - var(--gutter) * 7) / 2);
+      --book-max: calc((24rem - var(--gutter) * 7) / 2);
       container-type: inline-size;
       order: -1;
-      flex: 0 0 calc(100% * 9 / 24);
-      width: calc(100% * 9 / 24);
+      flex: 0 0 calc(100% * 10 / 24);
+      width: calc(100% * 10 / 24);
       margin-top: 0;
       display: grid;
       grid-template-columns: minmax(0, var(--book-max)) minmax(0, var(--book-max));
@@ -234,7 +234,7 @@
       align-content: center;
       justify-content: center;
       gap: var(--gutter);
-      padding: 2.25rem max(calc(var(--gutter) * 3), calc((100% * 9 / 24 - 2 * var(--book-max) - var(--gutter)) / 2));
+      padding: 2.25rem max(calc(var(--gutter) * 3), calc((100% * 10 / 24 - 2 * var(--book-max) - var(--gutter)) / 2));
     }
     .books figure:nth-child(1) {
       grid-column: 1;
