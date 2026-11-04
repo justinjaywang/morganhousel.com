@@ -1,0 +1,60 @@
+---
+layout: page
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ site.title }}</title>
+  <link rel="stylesheet" href="{{ '/styles/alt2.css' | relative_url }}">
+</head>
+<body>
+  <main>
+    <div class="copy">
+      {% capture copy %}{% include copy.md %}{% endcapture %}
+      {% assign copy = copy | replace_first: "Morgan Housel", '<span class="c2sc">Morgan Housel</span>' %}
+      {{ copy | markdownify | replace: '<a href="http', '<a target="_blank" rel="noopener noreferrer" href="http' }}
+    </div>
+
+    <div class="books">
+      {% for image in site.data.alt2 %}
+      <figure>
+        <a href="{{ image.url }}"{% if image.url contains '://' %} target="_blank" rel="noopener noreferrer"{% endif %}>
+          <img src="{{ image.src | relative_url }}" alt="{{ image.alt | escape }}">
+          <span class="scrim" aria-hidden="true"></span>
+        </a>
+      </figure>
+      {% endfor %}
+    </div>
+  </main>
+  <script>
+    (function () {
+      /* 0.16s at 4em wide. Elsewhere, halfway between that fixed time and a steady speed. */
+      var base = 0.16;
+      function widest(link) {
+        var rects = link.getClientRects();
+        var width = 0;
+        for (var i = 0; i < rects.length; i++) {
+          if (rects[i].width > width) width = rects[i].width;
+        }
+        return width;
+      }
+      function timeLinks() {
+        var links = document.querySelectorAll(".copy a");
+        if (!links.length) return;
+        var em = parseFloat(getComputedStyle(links[0]).fontSize);
+        var reference = 4 * em;
+        for (var i = 0; i < links.length; i++) {
+          var width = widest(links[i]);
+          var seconds = base * (width + reference) / (2 * reference);
+          links[i].style.setProperty("--link-time", seconds.toFixed(3) + "s");
+        }
+      }
+      timeLinks();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(timeLinks);
+      window.addEventListener("resize", timeLinks);
+    })();
+  </script>
+</body>
+</html>

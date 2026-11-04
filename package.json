@@ -4,7 +4,9 @@
     "css": "tailwindcss -i _styles/main.css -o styles/main.css --watch",
     "css:build": "tailwindcss -i _styles/main.css -o styles/main.css --minify",
     "css:alt": "tailwindcss -c tailwind.alt.config.js -i _styles/alt.css -o styles/alt.css --watch",
-    "css:alt:build": "tailwindcss -c tailwind.alt.config.js -i _styles/alt.css -o styles/alt.css --minify"
+    "css:alt:build": "tailwindcss -c tailwind.alt.config.js -i _styles/alt.css -o styles/alt.css --minify",
+    "css:alt2": "tailwindcss -c tailwind.alt.config.js -i _styles/alt2.css -o styles/alt2.css --watch",
+    "css:alt2:build": "tailwindcss -c tailwind.alt.config.js -i _styles/alt2.css -o styles/alt2.css --minify"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.17"
