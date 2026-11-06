@@ -5,6 +5,7 @@ layout: page
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <script>document.documentElement.classList.add("js")</script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ site.title }}</title>
   <link rel="icon" href="{{ '/favicon.png' | relative_url }}" type="image/png">
@@ -22,7 +23,7 @@ layout: page
       {% for image in site.data.images %}
       <figure>
         <a href="{{ image.url }}"{% if image.url contains '://' %} target="_blank" rel="noopener noreferrer"{% endif %}>
-          <img src="{{ image.src | relative_url }}" alt="{{ image.alt | escape }}">
+          <img src="{{ image.src | relative_url }}" alt="{{ image.alt | escape }}" width="{{ image.width }}" height="{{ image.height }}" decoding="async">
           <span class="scrim" aria-hidden="true"></span>
         </a>
       </figure>
@@ -55,6 +56,34 @@ layout: page
       timeLinks();
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(timeLinks);
       window.addEventListener("resize", timeLinks);
+    })();
+    (function () {
+      /* Hold each cover until it has decoded, then let the fade run.
+         Two frames so a cached file still transitions instead of appearing painted. */
+      var imgs = document.querySelectorAll(".books img");
+      function show(link) {
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            link.classList.add("is-loaded");
+          });
+        });
+      }
+      function watch(img) {
+        var link = img.closest("a");
+        if (!link) return;
+        function decoded() {
+          if (img.decode) img.decode().catch(function () {}).then(function () { show(link); });
+          else show(link);
+        }
+        if (img.complete) {
+          if (img.naturalWidth) decoded();
+          else show(link);
+        } else {
+          img.addEventListener("load", decoded, { once: true });
+          img.addEventListener("error", function () { show(link); }, { once: true });
+        }
+      }
+      for (var i = 0; i < imgs.length; i++) watch(imgs[i]);
     })();
   </script>
 </body>

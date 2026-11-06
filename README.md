@@ -73,7 +73,7 @@ Contacts and the Podcast, YouTube, and Twitter links are paragraphs in that file
 
 ## Editing images
 
-`_data/images.yml` is the list. Each entry has `src` (a path in this repo, starting with `/images/`), `alt`, and `url`. The template links each cover to `url`. Use the clean Amazon address, `https://www.amazon.com/dp/` plus the ISBN.
+`_data/images.yml` is the list. Each entry has `src` (a path in this repo, starting with `/images/`), `alt`, `url`, and the file's pixel `width` and `height`. The template links each cover to `url`. Use the clean Amazon address, `https://www.amazon.com/dp/` plus the ISBN. Width and height reserve the cover's box so the row does not jump while the file fades in.
 
 To swap a cover, replace the file or point `src` at a different file. To add one, put the file in `images/` and add an entry. Order in the YAML is the order on the page. Unlisted files stay off the page.
 

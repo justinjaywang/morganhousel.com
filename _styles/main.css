@@ -206,13 +206,29 @@
     box-shadow: 0.05rem 0.05rem 0.9rem rgb(0 0 0 / 5%);
     transition: box-shadow 100ms var(--ease);
   }
+  /* The cover and its scrim stay clear until decoded, then fade onto the sage.
+     500ms, ease-out quart. The scrim fades with the cover so it never sits on the sage alone.
+     Without .js they paint as the file arrives. */
+  .js .books img,
+  .js .books .scrim {
+    opacity: 0;
+    transition:
+      opacity 500ms cubic-bezier(0.25, 1, 0.5, 1),
+      box-shadow 100ms var(--ease);
+  }
+  .js .books a.is-loaded img,
+  .js .books a.is-loaded .scrim {
+    opacity: 1;
+  }
   .books a:hover img,
   .books a:focus-visible img {
     box-shadow: 0.08rem 0.2rem 1.12rem rgb(0 0 0 / 8%);
   }
   @media (prefers-reduced-motion: reduce) {
     .books a,
-    .books img {
+    .books img,
+    .js .books img,
+    .js .books .scrim {
       transition: none;
     }
     .books a:hover,

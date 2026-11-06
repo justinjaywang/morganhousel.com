@@ -3,13 +3,20 @@
 # Same as Ever and The Art of Spending Money sit below, left then right.
 # To swap one, change src to another file in this repo.
 # To add one, put the file in images/ and add a block here.
+# width and height are the file's pixels. They reserve the cover before it arrives.
 
 - src: /images/psychology.jpg
   alt: The Psychology of Money
   url: https://www.amazon.com/dp/0857197681
+  width: 971
+  height: 1500
 - src: /images/same.jpg
   alt: Same as Ever
   url: https://www.amazon.com/dp/0593332709
+  width: 994
+  height: 1500
 - src: /images/art.jpg
   alt: The Art of Spending Money
   url: https://www.amazon.com/dp/0593716620
+  width: 964
+  height: 1500
